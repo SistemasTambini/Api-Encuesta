@@ -6,9 +6,10 @@ const EncuestaCalificacion = sequelize.define(
   "EncuestaCalificacion",
   {
     id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-    },
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,  // ✅ Asegura que el ID se genera automáticamente
+      },
     nombre_cliente: {
       type: DataTypes.STRING(255),
       allowNull: false,
