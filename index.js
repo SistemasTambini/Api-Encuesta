@@ -3,6 +3,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 require("dotenv").config();
 const encuestaRoutes = require("./src/routes/encuesta.routes");
+const dashboardRoutes = require("./src/routes/dashbaord.routes")
 const errorHandler = require("./src/middlewares/errorHandler");
 
 const app = express();
@@ -14,6 +15,8 @@ app.use(morgan("dev"));
 
 // Rutas principales
 app.use("/api/encuestas", encuestaRoutes);
+// Usar las rutas del dashboard
+app.use("/api/dashboard", dashboardRoutes);
 
 // Middleware de manejo de errores
 app.use(errorHandler);
