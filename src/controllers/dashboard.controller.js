@@ -1,4 +1,5 @@
-const { sequelize } = require("../config/db");
+const sequelize = require("../config/db");
+
 
 // Controlador para obtener el promedio diario de un asesor
 exports.getPromedioDiarioPorAsesor = async (req, res) => {
