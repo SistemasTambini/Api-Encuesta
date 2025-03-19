@@ -16,7 +16,7 @@ const obtenerCalificaciones = async (req, res) => {
 // Crear una nueva calificación
 const crearCalificacion = async (req, res) => {
   try {
-    const { nombre_cliente, area, asesor, pregunta1, pregunta2, pregunta3, pregunta4, pregunta5, pregunta6, pregunta7 } = req.body;
+    const { nombre_cliente, area, asesor, pregunta1, pregunta2, pregunta3, pregunta4, pregunta5, pregunta6, pregunta7,pregunta8 } = req.body;
 
     const nuevaCalificacion = await EncuestaCalificacion.create({
       nombre_cliente,
@@ -29,6 +29,7 @@ const crearCalificacion = async (req, res) => {
       pregunta5,
       pregunta6,
       pregunta7,
+      pregunta8,
     });
 
     res.status(201).json(nuevaCalificacion);

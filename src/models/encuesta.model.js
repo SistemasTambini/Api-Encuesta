@@ -57,6 +57,11 @@ const EncuestaCalificacion = sequelize.define(
       allowNull: true,
       validate: { min: 1, max: 5 },
     },
+    pregunta8: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      validate: { min: 1, max: 5 },
+    },
     fecha_creacion: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
