@@ -1,5 +1,5 @@
 const EncuestaCalificacion = require("../models/encuesta.model");
-const { Op } = require("sequelize");
+const { Op, fn, col, where } = require("sequelize");
 const Areas = require("../models/areas.model");
 const Usuario = require("../models/usuario.model");
 
@@ -23,11 +23,12 @@ const obtenerCalificacionesPorRangoFechas = async (req, res) => {
     }
 
     const calificaciones = await EncuestaCalificacion.findAll({
-      where: {
-        fecha_creacion: {
-          [Op.between]: [new Date(fecha_inicio), new Date(fecha_fin)],
-        },
-      },
+      where: where(
+        fn("DATE", col("fecha_creacion")),
+        {
+          [Op.between]: [fecha_inicio, fecha_fin]
+        }
+      )
     });
 
     res.json(calificaciones);
