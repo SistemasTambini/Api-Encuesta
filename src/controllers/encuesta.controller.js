@@ -1,4 +1,5 @@
 const EncuestaCalificacion = require("../models/encuesta.model");
+const { Op } = require("sequelize");
 const Areas = require("../models/areas.model");
 const Usuario = require("../models/usuario.model");
 
@@ -10,6 +11,29 @@ const obtenerCalificaciones = async (req, res) => {
   } catch (error) {
     console.error("🔴 Error al obtener las calificaciones:", error);
     res.status(500).json({ error: "Error al obtener las calificaciones" });
+  }
+};
+
+const obtenerCalificacionesPorRangoFechas = async (req, res) => {
+  try {
+    const { fecha_inicio, fecha_fin } = req.query;
+
+    if (!fecha_inicio || !fecha_fin) {
+      return res.status(400).json({ error: "Se requieren fecha_inicio y fecha_fin" });
+    }
+
+    const calificaciones = await EncuestaCalificacion.findAll({
+      where: {
+        fecha_creacion: {
+          [Op.between]: [new Date(fecha_inicio), new Date(fecha_fin)],
+        },
+      },
+    });
+
+    res.json(calificaciones);
+  } catch (error) {
+    console.error("🔴 Error al obtener calificaciones por rango:", error);
+    res.status(500).json({ error: "Error al obtener las calificaciones por rango" });
   }
 };
 
@@ -70,4 +94,4 @@ const obtenerUsuariosPorArea = async (req, res) => {
   }
 };
 
-module.exports = { obtenerCalificaciones, crearCalificacion, obtenerAreas, obtenerUsuariosPorArea };
+module.exports = { obtenerCalificaciones, crearCalificacion, obtenerAreas, obtenerUsuariosPorArea, obtenerCalificacionesPorRangoFechas };

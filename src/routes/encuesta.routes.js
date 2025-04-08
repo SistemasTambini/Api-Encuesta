@@ -1,17 +1,24 @@
 const express = require("express");
-const { obtenerCalificaciones, crearCalificacion, obtenerAreas, obtenerUsuariosPorArea } = require("../controllers/encuesta.controller");
+const {
+  obtenerCalificaciones,
+  obtenerCalificacionesPorRangoFechas,
+  crearCalificacion,
+  obtenerAreas,
+  obtenerUsuariosPorArea,
+} = require("../controllers/encuesta.controller");
 const validateCalificacion = require("../middlewares/validateCalificacion");
 
 const router = express.Router();
 
-// Rutas para encuesta_calificacion
+// 📍 Primero rutas específicas
+router.get("/filtrar", obtenerCalificacionesPorRangoFechas);
 router.get("/", obtenerCalificaciones);
 router.post("/", validateCalificacion, crearCalificacion);
 
-// Rutas para áreas
+// 📍 Luego rutas específicas para áreas
 router.get("/areas", obtenerAreas);
 
-// Rutas para usuarios por área
-router.get("/:area", obtenerUsuariosPorArea);
+// 📍 Al final: ruta dinámica
+router.get("/:area", obtenerUsuariosPorArea); // ← esta debe ir al final
 
 module.exports = router;
