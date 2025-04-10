@@ -1,10 +1,12 @@
 const sequelize = require("../config/db");
+const { redondearCamposNumericos } = require("../utils/redondear");
 
 // Asistente para ejecutar funciones sin parámetros
 const ejecutarFuncionSimple = async (res, funcionSQL) => {
   try {
     const [result] = await sequelize.query(`SELECT * FROM ${funcionSQL}()`);
-    res.json(result);
+    const resultadoRedondeado = redondearCamposNumericos(result);
+    res.json(resultadoRedondeado);
   } catch (error) {
     console.error(`🔴 Error al ejecutar ${funcionSQL}:`, error);
     res.status(500).json({ error: `Error al ejecutar ${funcionSQL}` });
@@ -24,7 +26,8 @@ const ejecutarFuncionConRango = async (res, funcionSQL, fecha_inicio, fecha_fin)
         replacements: { fecha_inicio, fecha_fin },
       }
     );
-    res.json(result);
+    const resultadoRedondeado = redondearCamposNumericos(result);
+    res.json(resultadoRedondeado);
   } catch (error) {
     console.error(`🔴 Error al ejecutar ${funcionSQL}:`, error);
     res.status(500).json({ error: `Error al ejecutar ${funcionSQL}` });
