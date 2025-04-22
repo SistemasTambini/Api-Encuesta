@@ -86,6 +86,7 @@ const obtenerUsuariosPorArea = async (req, res) => {
 
     const usuarios = await Usuario.findAll({
       where: { area: area },
+      estado: 1,
     });
 
     res.json(usuarios);
