@@ -85,8 +85,10 @@ const obtenerUsuariosPorArea = async (req, res) => {
     }
 
     const usuarios = await Usuario.findAll({
-      where: { area: area },
-      estado: 1,
+      where: {
+        area: area,
+        estado: 1, // ✅ Ahora sí se filtra correctamente
+      },
     });
 
     res.json(usuarios);
