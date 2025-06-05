@@ -82,3 +82,5 @@ exports.getPromedioTotal = async (req, res) => {
         res.status(500).json({ error: "Error interno del servidor" });
     }
 };
+//hola mundo
+
